@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.env
+*.egg-info/
+dist/
+build/
+
+# Models / large files
+*.pt
+*.pth
+*.bin
+*.onnx
+reference_audio/
+
+# Vector store
+backend/rag/faiss_index/
+
+# Node
+node_modules/
+.next/
+.env.local
+.env.production
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
