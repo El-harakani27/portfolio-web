@@ -9,6 +9,7 @@ faiss-cpu
 sentence-transformers
 langdetect
 faster-whisper
+torch
 tavily-python
 redis
 python-dotenv
