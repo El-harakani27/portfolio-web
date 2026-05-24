@@ -7,7 +7,7 @@ import Link from "next/link";
 const FONT = "var(--font-syne), var(--display), sans-serif";
 const MONO = "'Elms Sans', sans-serif";
 
-const API = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
+const API = (process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000").replace(/\/$/, "");
 const MAX_QUESTIONS = 5;
 
 type MicState = "idle" | "listening" | "thinking";
