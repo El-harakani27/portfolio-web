@@ -100,6 +100,11 @@ export default function SkillsSection() {
       id="skills"
       style={{ background: '#ffffff', padding: '120px 0 140px', overflow: 'hidden' }}
     >
+      <style>{`
+        @media (max-width: 768px) {
+          #skills { padding-top: 80px !important; padding-bottom: 100px !important; }
+        }
+      `}</style>
       {/* Label */}
       <p
         className="skills-meta"
@@ -124,7 +129,7 @@ export default function SkillsSection() {
           style={{
             fontFamily: FONT,
             fontWeight: 800,
-            fontSize: 'clamp(3rem, 5vw, 10rem)',
+            fontSize: 'clamp(2rem, 5vw, 10rem)',
             letterSpacing: '-0.04em',
             lineHeight: 0.88,
             color: '#000000',

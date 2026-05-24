@@ -291,7 +291,7 @@ export default function AboutSection() {
               style={{
                 fontFamily: FONT,
                 fontWeight: 800,
-                fontSize: 'clamp(3.8rem, 7.5vw, 8rem)',
+                fontSize: 'clamp(2.5rem, 7.5vw, 8rem)',
                 lineHeight: 0.88,
                 letterSpacing: '-0.04em',
                 color: '#000000',
@@ -384,7 +384,7 @@ export default function AboutSection() {
               style={{
                 fontFamily: FONT,
                 fontWeight: 800,
-                fontSize: 'clamp(3rem, 9vw, 10rem)',
+                fontSize: 'clamp(2rem, 9vw, 10rem)',
                 letterSpacing: '-0.04em',
                 lineHeight: 0.88,
                 color: '#ffffff',
@@ -464,7 +464,7 @@ export default function AboutSection() {
               style={{
                 fontFamily: FONT,
                 fontWeight: 800,
-                fontSize: 'clamp(3rem, 9vw, 10rem)',
+                fontSize: 'clamp(2rem, 9vw, 10rem)',
                 letterSpacing: '-0.04em',
                 lineHeight: 0.88,
                 color: '#ffffff',

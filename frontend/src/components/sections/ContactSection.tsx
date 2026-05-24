@@ -72,6 +72,11 @@ export default function ContactSection() {
       style={{ background: '#ffffff', padding: '120px 40px 80px', overflow: 'hidden' }}
     >
       <style>{`
+        @media (max-width: 768px) {
+          #contact { padding: 80px 24px 60px !important; }
+        }
+      `}</style>
+      <style>{`
         .email-link {
           display: inline-flex;
           align-items: center;
@@ -134,7 +139,7 @@ export default function ContactSection() {
           className="contact-t1"
           style={{
             fontFamily: FONT, fontWeight: 800,
-            fontSize: 'clamp(3rem, 9vw, 10rem)',
+            fontSize: 'clamp(2rem, 9vw, 10rem)',
             letterSpacing: '-0.04em', lineHeight: 0.88,
             color: '#000000', textTransform: 'uppercase', margin: 0,
           }}
@@ -149,7 +154,7 @@ export default function ContactSection() {
           className="contact-t2"
           style={{
             fontFamily: FONT, fontWeight: 800,
-            fontSize: 'clamp(3rem, 9vw, 10rem)',
+            fontSize: 'clamp(2rem, 9vw, 10rem)',
             letterSpacing: '-0.04em', lineHeight: 0.88,
             color: 'rgba(0,0,0,0.12)', textTransform: 'uppercase', margin: 0,
           }}

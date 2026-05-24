@@ -139,6 +139,11 @@ export default function ProjectsSection() {
       id="projects"
       style={{ background: '#000000', padding: '120px 40px 140px', overflow: 'hidden' }}
     >
+      <style>{`
+        @media (max-width: 768px) {
+          #projects { padding: 80px 24px 100px !important; }
+        }
+      `}</style>
       {/* Label */}
       <p
         className="projects-meta"
@@ -162,7 +167,7 @@ export default function ProjectsSection() {
           style={{
             fontFamily: FONT,
             fontWeight: 800,
-            fontSize: 'clamp(3rem, 9vw, 10rem)',
+            fontSize: 'clamp(2rem, 9vw, 10rem)',
             letterSpacing: '-0.04em',
             lineHeight: 0.88,
             color: '#ffffff',

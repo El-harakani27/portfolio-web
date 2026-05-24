@@ -100,18 +100,20 @@ export default function AITeaserSection() {
       id="ai-demo"
       style={{ background: '#000000', padding: '120px 40px 140px', overflow: 'hidden', position: 'relative' }}
     >
-      {/* Ambient glow */}
-      <div style={{
-        position: 'absolute', inset: 0, pointerEvents: 'none',
-        background: 'radial-gradient(ellipse 70% 50% at 50% 60%, rgba(124,58,237,0.07) 0%, transparent 70%)',
-      }} />
-
       <style>{`
         @keyframes wave-pulse {
           0%   { transform: scaleY(0.22); }
           100% { transform: scaleY(1);    }
         }
+        @media (max-width: 768px) {
+          #ai-demo { padding: 80px 24px 100px !important; }
+        }
       `}</style>
+      {/* Ambient glow */}
+      <div style={{
+        position: 'absolute', inset: 0, pointerEvents: 'none',
+        background: 'radial-gradient(ellipse 70% 50% at 50% 60%, rgba(124,58,237,0.07) 0%, transparent 70%)',
+      }} />
 
       <div style={{ position: 'relative', zIndex: 2 }}>
 
@@ -133,7 +135,7 @@ export default function AITeaserSection() {
             className="ai-title-1"
             style={{
               fontFamily: FONT, fontWeight: 800,
-              fontSize: 'clamp(3rem, 9vw, 10rem)',
+              fontSize: 'clamp(2rem, 9vw, 10rem)',
               letterSpacing: '-0.04em', lineHeight: 0.88,
               color: '#ffffff', textTransform: 'uppercase', margin: 0,
             }}
@@ -148,7 +150,7 @@ export default function AITeaserSection() {
             className="ai-title-2"
             style={{
               fontFamily: FONT, fontWeight: 800,
-              fontSize: 'clamp(3rem, 9vw, 10rem)',
+              fontSize: 'clamp(2rem, 9vw, 10rem)',
               letterSpacing: '-0.04em', lineHeight: 0.88,
               textTransform: 'uppercase', margin: 0,
               background: 'linear-gradient(135deg, #a855f7 0%, #f97316 100%)',

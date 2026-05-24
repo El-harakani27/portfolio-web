@@ -117,9 +117,22 @@ export default function HeroSection() {
         position: 'relative',
       }}
     >
+      <style>{`
+        @media (max-width: 768px) {
+          #hero { padding-left: 20px !important; padding-right: 20px !important; }
+          .hero-name { font-size: 15vw !important; }
+          .hero-topbar { padding-top: 20px !important; padding-bottom: 14px !important; }
+          .hero-topbar nav { gap: 16px !important; }
+          .hero-bottombar { padding-top: 14px !important; padding-bottom: 20px !important; }
+        }
+        @media (max-width: 480px) {
+          .hero-name { font-size: 13vw !important; }
+        }
+      `}</style>
       {/* ── Top bar ──────────────────────────────────────────────── */}
       <div
         ref={topBarRef}
+        className="hero-topbar"
         style={{
           display: 'flex',
           justifyContent: 'space-between',
@@ -190,6 +203,7 @@ export default function HeroSection() {
         <div style={{ overflow: 'hidden', lineHeight: 1 }}>
           <div
             ref={elRef}
+            className="hero-name"
             style={{
               fontFamily: FONT,
               fontWeight: 800,
@@ -208,6 +222,7 @@ export default function HeroSection() {
         <div style={{ overflow: 'hidden', lineHeight: 1 }}>
           <div
             ref={harakaniRef}
+            className="hero-name"
             style={{
               fontFamily: FONT,
               fontWeight: 800,
@@ -236,6 +251,7 @@ export default function HeroSection() {
       {/* ── Bottom bar ───────────────────────────────────────────── */}
       <div
         ref={bottomBarRef}
+        className="hero-bottombar"
         style={{
           display: 'flex',
           justifyContent: 'space-between',
