@@ -6,22 +6,30 @@ __pycache__/
 *.egg-info/
 dist/
 build/
+.venv/
 
 # Models / large files
 *.pt
 *.pth
 *.bin
 *.onnx
+*.wav
+*.mp3
 reference_audio/
 
 # Vector store
 backend/rag/faiss_index/
+backend/rag/faiss_index-small/
+backend/rag/faiss-cv-v1/
+backend/rag/chroma-cv-v1/
+
 
 # Node
 node_modules/
 .next/
 .env.local
 .env.production
+*.tsbuildinfo
 
 # OS
 .DS_Store
@@ -30,3 +38,18 @@ Thumbs.db
 # IDE
 .vscode/
 .idea/
+
+# Tool configs (local only)
+.mcp.json
+skills-lock.json
+
+# Scratch / test files
+tes.ipynb
+backend/rag/test.ipynb
+
+.design
+.claude
+
+# Modal
+
+model_tts/client.py

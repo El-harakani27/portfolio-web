@@ -1,36 +1,25 @@
-import torch
-from faster_whisper import WhisperModel
-from qwen_asr import Qwen3ASRModel
+import os
+from groq import Groq
+from dotenv import load_dotenv
 
-_model = None
-_model_name: str = "whisper"
+load_dotenv()
 
-DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
-COMPUTE_TYPE = "float16" if DEVICE == "cuda" else "int8"
+_client: Groq = None
+_model: str = "distil-whisper-large-v3-en"
 
 
-def load_model(name: str = "whisper"):
-    global _model, _model_name
-    _model_name = name
-    if _model_name == "qwen":
-        _model = Qwen3ASRModel.from_pretrained(
-            "Qwen/Qwen3-ASR-0.6B",
-            dtype=torch.bfloat16,
-            device_map=DEVICE,
-            max_inference_batch_size=4,
-            max_new_tokens=256,
-        )
-        print(f"Qwen model loaded on {DEVICE}")
-    else:
-        _model = WhisperModel("medium", device=DEVICE, compute_type=COMPUTE_TYPE)
-        print(f"Whisper model loaded on {DEVICE}")
+def load_model(name: str = "whisper-large-v3-turbo"):
+    global _client, _model
+    _model = name
+    _client = Groq(api_key=os.getenv("GROQ_WHISPER_API_KEY"))
 
 
 def transcribe(audio_path: str) -> dict:
-    if _model_name == "qwen":
-        result = _model.transcribe(audio_path)
-        return {"transcript": result[-1].text, "language": result[-1].language}
-    else:
-        segments, info = _model.transcribe(audio_path, beam_size=5)
-        text = " ".join(segment.text.strip() for segment in segments)
-        return {"transcript": text, "language": info.language}
+    with open(audio_path, "rb") as f:
+        result = _client.audio.transcriptions.create(
+            file=(os.path.basename(audio_path), f),
+            model=_model,
+            language="en",
+            response_format="json",
+        )
+    return {"transcript": result.text, "language": "en"}

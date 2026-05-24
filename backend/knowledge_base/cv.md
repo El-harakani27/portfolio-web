@@ -21,12 +21,12 @@ Algorithms and Data Structures, Deep Learning, Machine Learning, Database Manage
 
 ## Certifications
 
-- TensorFlow Developer Certification — Google Developers
-- AWS Cloud Technical Essentials
-- Generative Deep Learning with TensorFlow — DeepLearning.AI
-- Natural Language Processing — DeepLearning.AI
-- Agentic AI: Deep Agents with LangGraph — LangChain
-- Agentic AI: Deep Research with LangGraph — LangChain
+- TensorFlow Developer Certification — Google Developers https://www.credential.net/e223f041-74ac-44a3-b4a5-12791336dda8#acc.t5oKc3S6
+- AWS Cloud Technical Essentials  https://www.coursera.org/account/accomplishments/verify/FPN65S3VMUH9
+- Generative Deep Learning with TensorFlow — DeepLearning.AI https://www.coursera.org/account/accomplishments/verify/4VFFH5QNJXHC
+- Natural Language Processing — DeepLearning.AI https://www.coursera.org/account/accomplishments/specialization/DBIE00EQAIYJ?utm_source=link&utm_medium=certificate&utm_content=cert_image&utm_campaign=sharing_cta&utm_product=s12n
+- Agentic AI: Deep Agents with LangGraph — LangChain https://academy.langchain.com/certificates/jveobrvdeu
+- Agentic AI: Deep Research with LangGraph — LangChain https://academy.langchain.com/certificates/kaq8j6muwd
 
 ---
 
@@ -41,9 +41,9 @@ Algorithms and Data Structures, Deep Learning, Machine Learning, Database Manage
 ### Singularity Labs — AI/LLM Engineer
 **January 2025 – March 2025 | Cairo, Egypt**
 - Worked on Sales Agent AI, improving response accuracy using RAG-based search techniques.
-- Worked with LangChain and FAISS for optimized retrieval.
+- Worked with LangChain for optimized retrieval.
 - Developed expertise in Retrieval-Augmented Generation (RAG) and AI Agents.
-- Tested and fine-tuned LLMs (GPT-4, LLaMA) using Hugging Face and LoRA.
+- Tested and fine-tuned LLMs using QLoRA and LoRA.
 
 ### TechWebInnovations OÜ — Junior Web Designer and Infrastructure Admin
 **September 2024 – August 2025 | Germany (Remote)**
@@ -61,24 +61,24 @@ Algorithms and Data Structures, Deep Learning, Machine Learning, Database Manage
 
 ## Projects
 
-### Digital Twin – Network Topology Extractor
+### Digital Twin – Network Topology Extractor (NOIKA)
 - Parses network topology diagrams from PowerPoint files, extracting nodes, connections, and link types using structured LLM output with Pydantic models.
 - Exports results as YAML topology files ready for use in DTaaS (Digital Twin as a Service).
 - Features a chatbot interface for querying the topology (e.g., "how many nodes?", "list physical connections").
 - Generates an LLM-powered summary of the extracted network topology.
 - Built for Nokia as part of AI engineering work.
 
-### BMW Logistics Automation
+### BMW Logistics Automation (Singularity Labs)
 - Built an automated email generation and analysis system using LLMs.
 - LLM generates outreach emails to logistics companies; analyses replies to determine the best offer based on defined criteria.
 - Tech stack: Python, LangChain, Ollama, FastAPI.
 
-### Hieroglyphic OCR and Translator
+### Hieroglyphic OCR and Translator (GRADUATION PROJECT)
 - Developed an OCR and translation system for ancient Egyptian hieroglyphic characters.
 - Tourists can photograph an ancient Egyptian wall and receive a translation.
 - Tech stack: Python, TensorFlow, Keras, Detectron2 (transfer learning).
 
-### MonoTalk — Graduation Project
+### MonoTalk — Graduation Project (GRADUATION PROJECT)
 **February 2023 – June 2024**
 - Developed a mobile and web application for real-time interaction with monuments in museums, promoting Egyptian culture globally.
 - Built a CNN model for place detection from scratch using TensorFlow, then improved with ResNet (transfer learning).

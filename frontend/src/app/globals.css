@@ -1,0 +1,191 @@
+@import url('https://fonts.googleapis.com/css2?family=Elms+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ─── PORTFOLIO TOKENS ───────────────────────────────────────── */
+:root {
+  /* Backgrounds */
+  --bg:              #FAFAF8;
+  --bg-subtle:       #F4F1ED;
+
+  /* Text */
+  --text:            #111018;
+  --text-muted:      #35ac2b;
+  --text-dim:        #A8A5B0;
+
+  /* Brand (use var(--brand) in all custom components) */
+  --brand:           #7C3AED;
+  --brand-warm:      #F97316;
+  --brand-soft:      #EDE9FE;
+  --border-brand:    rgba(124, 58, 237, 0.2);
+
+  /* Typography */
+  --display:         var(--font-display), 'Space Grotesk', system-ui, sans-serif;
+
+  /* ── shadcn semantic overrides ───────────────────────────── */
+  --background:             #FAFAF8;
+  --foreground:             #111018;
+  --card:                   #FFFFFF;
+  --card-foreground:        #111018;
+  --popover:                #FFFFFF;
+  --popover-foreground:     #111018;
+  --primary:                oklch(0.488 0.243 264.376);   /* #7C3AED violet */
+  --primary-foreground:     oklch(0.985 0 0);
+  --secondary:              #F4F1ED;
+  --secondary-foreground:   #111018;
+  --muted:                  #F4F1ED;
+  --muted-foreground:       #6B7080;
+  --accent:                 #EDE9FE;                      /* soft violet tint */
+  --accent-foreground:      #7C3AED;
+  --destructive:            oklch(0.577 0.245 27.325);
+  --border:                 rgba(0, 0, 0, 0.08);
+  --input:                  rgba(0, 0, 0, 0.1);
+  --ring:                   oklch(0.488 0.243 264.376);
+  --radius:                 0.625rem;
+  --sidebar:                #F4F1ED;
+  --sidebar-foreground:     #111018;
+  --sidebar-primary:        oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent:         #EDE9FE;
+  --sidebar-accent-foreground: #7C3AED;
+  --sidebar-border:         rgba(0, 0, 0, 0.08);
+  --sidebar-ring:           oklch(0.488 0.243 264.376);
+}
+
+/* ─── BASE ────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  font-size: 16px;
+  color-scheme: light;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg-subtle); }
+::-webkit-scrollbar-thumb { background: rgba(124, 58, 237, 0.25); border-radius: 2px; }
+
+/* Selection */
+::selection { background: var(--brand-soft); color: var(--brand); }
+
+/* Focus */
+:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; }
+
+/* ─── DISPLAY FONT ────────────────────────────────────────────── */
+h1, h2, h3, .display { font-family: var(--display); }
+
+/* ─── GRADIENT TEXT ───────────────────────────────────────────── */
+.gradient-text {
+  background: linear-gradient(135deg, #7C3AED 0%, #F97316 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── SECTION ─────────────────────────────────────────────────── */
+.section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 120px 0 80px;
+}
+
+.section-inner {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+@media (max-width: 768px) {
+  .section { padding: 100px 0 60px; }
+  .section-inner { padding: 0 24px; }
+}
+
+/* ─── LABEL ───────────────────────────────────────────────────── */
+.label {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brand);
+  margin-bottom: 16px;
+  font-family: 'Elms Sans', sans-serif;
+}
+
+/* ─── MOBILE ──────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .section { padding: 100px 0 60px; }
+  .section-inner { padding: 0 24px; }
+}
+
+/* ─── REDUCED MOTION ──────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.1s !important; transition-duration: 0.1s !important; }
+  /* disable cursor-reactive effects via CSS — JS guards handle the rest */
+  canvas { display: none !important; }
+}
+
+/* ─── SHADCN THEME WIRING ─────────────────────────────────────── */
+@theme inline {
+  --font-heading:                    var(--font-sans);
+  --font-sans:                       var(--font-sans);
+  --color-background:                var(--background);
+  --color-foreground:                var(--foreground);
+  --color-card:                      var(--card);
+  --color-card-foreground:           var(--card-foreground);
+  --color-popover:                   var(--popover);
+  --color-popover-foreground:        var(--popover-foreground);
+  --color-primary:                   var(--primary);
+  --color-primary-foreground:        var(--primary-foreground);
+  --color-secondary:                 var(--secondary);
+  --color-secondary-foreground:      var(--secondary-foreground);
+  --color-muted:                     var(--muted);
+  --color-muted-foreground:          var(--muted-foreground);
+  --color-accent:                    var(--accent);
+  --color-accent-foreground:         var(--accent-foreground);
+  --color-destructive:               var(--destructive);
+  --color-border:                    var(--border);
+  --color-input:                     var(--input);
+  --color-ring:                      var(--ring);
+  --color-sidebar:                   var(--sidebar);
+  --color-sidebar-foreground:        var(--sidebar-foreground);
+  --color-sidebar-primary:           var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent:            var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border:            var(--sidebar-border);
+  --color-sidebar-ring:              var(--sidebar-ring);
+  --radius-sm:   calc(var(--radius) * 0.6);
+  --radius-md:   calc(var(--radius) * 0.8);
+  --radius-lg:   var(--radius);
+  --radius-xl:   calc(var(--radius) * 1.4);
+  --radius-2xl:  calc(var(--radius) * 1.8);
+  --radius-3xl:  calc(var(--radius) * 2.2);
+  --radius-4xl:  calc(var(--radius) * 2.6);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+}

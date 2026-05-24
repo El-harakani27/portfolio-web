@@ -5,11 +5,13 @@ langchain
 langchain-groq
 langgraph
 langchain-community
-faiss-cpu
+langchain-chroma
+langchain-huggingface
 sentence-transformers
-langdetect
-faster-whisper
 torch
+groq
 tavily-python
-redis
 python-dotenv
+httpx
+requests
+redis
