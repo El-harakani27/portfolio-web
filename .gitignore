@@ -22,7 +22,7 @@ backend/rag/faiss_index/
 backend/rag/faiss_index-small/
 backend/rag/faiss-cv-v1/
 backend/rag/chroma-cv-v1/
-
+backend/rag/chroma-cv-v2/
 
 # Node
 node_modules/
