@@ -1,20 +1,16 @@
 import os
 # from langchain_community.vectorstores import FAISS
 from langchain_chroma import Chroma
-from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_community.embeddings import FastEmbedEmbeddings
 # INDEX_PATH = os.path.join(os.path.dirname(__file__), "faiss-cv-v1")
-CHROMA_PATH = os.path.join(os.path.dirname(__file__), "chroma-cv-v2")
+CHROMA_PATH = os.path.join(os.path.dirname(__file__), "chroma-cv-v3")
 
 _vectorstore = None
 
 def load_retriever():
     global _vectorstore
     print("  creating embeddings model...")
-    embeddings = HuggingFaceEmbeddings(
-        model_name="sentence-transformers/all-MiniLM-L6-v2",
-        model_kwargs={"device": "cpu"},
-        encode_kwargs={"normalize_embeddings": True},
-    )
+    embeddings = FastEmbedEmbeddings(model_name="BAAI/bge-small-en-v1.5")
     print("  loading Chroma index...")
     _vectorstore = Chroma(
         persist_directory=CHROMA_PATH,

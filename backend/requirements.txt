@@ -7,9 +7,7 @@ langchain-groq
 langgraph
 langchain-community
 langchain-chroma
-langchain-huggingface
-sentence-transformers
-torch
+fastembed
 groq
 tavily-python
 python-dotenv
