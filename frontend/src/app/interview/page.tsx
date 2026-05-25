@@ -301,10 +301,16 @@ export default function InterviewPage() {
         .back-link:hover { color: #ffffff !important; }
         .stop-btn:hover { color: rgba(255,255,255,0.6) !important; }
         @keyframes spin { to { transform: rotate(360deg); } }
+        @media (max-width: 640px) {
+          .interview-header { padding: 12px 18px !important; }
+          .interview-title { display: none; }
+          .interview-msgs { padding: 24px 16px 16px !important; }
+          .interview-controls { padding: 10px 16px 28px !important; }
+        }
       `}</style>
 
       {/* ── Header ──────────────────────────────────────────────── */}
-      <header style={{
+      <header className="interview-header" style={{
         position: "sticky", top: 0, zIndex: 10,
         padding: "16px 40px",
         display: "flex", alignItems: "center", justifyContent: "space-between",
@@ -332,7 +338,7 @@ export default function InterviewPage() {
           Back
         </Link>
 
-        <span style={{
+        <span className="interview-title" style={{
           fontFamily: MONO,
           fontSize: "0.6rem",
           color: "rgba(255,255,255)",
@@ -462,7 +468,7 @@ export default function InterviewPage() {
 
       {/* ── Messages ─────────────────────────────────────────────── */}
       <div
-        className="interview-scrollbar"
+        className="interview-msgs interview-scrollbar"
         style={{
           flex: 1,
           overflowY: "auto",
@@ -585,7 +591,7 @@ export default function InterviewPage() {
       </div>
 
       {/* ── Bottom controls ──────────────────────────────────────── */}
-      <div style={{
+      <div className="interview-controls" style={{
         padding: "12px 40px 32px",
         maxWidth: "760px",
         width: "100%",

@@ -75,6 +75,10 @@ export default function ContactSection() {
         @media (max-width: 768px) {
           #contact { padding: 80px 24px 60px !important; }
         }
+        @media (max-width: 640px) {
+          .email-link { font-size: clamp(0.7rem, 3.8vw, 1rem) !important; gap: 8px !important; }
+          .email-link svg { width: 14px !important; height: 14px !important; }
+        }
       `}</style>
       <style>{`
         .email-link {
