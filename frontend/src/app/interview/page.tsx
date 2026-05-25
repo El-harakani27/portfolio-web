@@ -115,14 +115,18 @@ export default function InterviewPage() {
   const audioChunksRef = useRef<Blob[]>([]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const audioCtxRef = useRef<AudioContext | null>(null);
+  const audioSrcRef = useRef<AudioBufferSourceNode | null>(null);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
   useEffect(() => {
-    return () => { audioRef.current?.pause(); };
+    return () => {
+      try { audioSrcRef.current?.stop(); } catch {}
+      audioCtxRef.current?.close();
+    };
   }, []);
 
   useEffect(() => {
@@ -200,8 +204,16 @@ export default function InterviewPage() {
     }
   };
 
+  const stopTts = () => {
+    try { audioSrcRef.current?.stop(); } catch {}
+    audioSrcRef.current = null;
+    audioCtxRef.current?.close();
+    audioCtxRef.current = null;
+    setTtsState("idle");
+  };
+
   const playTts = async (text: string) => {
-    if (audioRef.current) { audioRef.current.pause(); audioRef.current = null; }
+    stopTts();
     setTtsState("generating");
     try {
       const res = await fetch(`${API}/interview/tts`, {
@@ -209,17 +221,28 @@ export default function InterviewPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text, language: detectedLang }),
       });
-      if (!res.ok) throw new Error();
+      if (!res.ok) throw new Error("TTS request failed");
       const buf = await res.arrayBuffer();
-      const url = URL.createObjectURL(new Blob([buf], { type: "audio/wav" }));
-      const audio = new Audio(url);
-      audioRef.current = audio;
+      if (buf.byteLength === 0) throw new Error("Empty audio response");
+
+      // Use Web Audio API — avoids blob URL range-request issues (ERR_REQUEST_RANGE_NOT_SATISFIABLE)
+      const ctx = new AudioContext();
+      audioCtxRef.current = ctx;
+      const audioBuffer = await ctx.decodeAudioData(buf);
+      const source = ctx.createBufferSource();
+      audioSrcRef.current = source;
+      source.buffer = audioBuffer;
+      source.connect(ctx.destination);
       setTtsState("playing");
-      audio.onended = () => { URL.revokeObjectURL(url); audioRef.current = null; setTtsState("idle"); };
-      audio.onerror = () => { URL.revokeObjectURL(url); audioRef.current = null; setTtsState("idle"); };
-      audio.play();
+      source.onended = () => {
+        ctx.close();
+        audioCtxRef.current = null;
+        audioSrcRef.current = null;
+        setTtsState("idle");
+      };
+      source.start(0);
     } catch {
-      setTtsState("idle");
+      stopTts();
     }
   };
 
@@ -611,15 +634,7 @@ export default function InterviewPage() {
                   </span>
                   <button
                     className="stop-btn"
-                    onClick={() => {
-                      if (audioRef.current) {
-                        const src = audioRef.current.src;
-                        audioRef.current.pause();
-                        audioRef.current = null;
-                        if (src.startsWith("blob:")) URL.revokeObjectURL(src);
-                      }
-                      setTtsState("idle");
-                    }}
+                    onClick={stopTts}
                     style={{
                       background: "none", border: "none", cursor: "pointer",
                       color: "rgba(255,255,255,0.25)", padding: "0 2px",
