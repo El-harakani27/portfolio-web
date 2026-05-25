@@ -1,13 +1,16 @@
 import tempfile
 import os
+import logging
 import httpx
 from fastapi import APIRouter, UploadFile, File, HTTPException
-from fastapi.responses import Response
+from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 from models import whisper
 from agent import graph
 from guard import rate_limit
 from dotenv import load_dotenv
+
+logger = logging.getLogger(__name__)
 load_dotenv()
 router = APIRouter(prefix="/interview", tags=["Interview"])
 
@@ -63,25 +66,35 @@ async def chat(req: ChatRequest):
     return {"response": response}
 
 
+async def _stream_tts(text: str, language: str):
+    """Stream audio from Modal; logs errors but keeps the 200 open so platform
+    proxies don't time out waiting for the first byte."""
+    try:
+        async with httpx.AsyncClient(timeout=300.0) as client:
+            async with client.stream(
+                "POST", _TTS_URL, json={"text": text, "language": language}
+            ) as resp:
+                if resp.status_code != 200:
+                    body = await resp.aread()
+                    logger.error("TTS Modal returned %s: %s", resp.status_code, body[:500])
+                    return
+                logger.info("TTS streaming started <- status=%s", resp.status_code)
+                async for chunk in resp.aiter_bytes(8192):
+                    yield chunk
+    except Exception as e:
+        logger.exception("TTS stream error: %s", e)
+
+
 @router.post("/tts")
 async def tts(req: TtsRequest):
     if not _TTS_URL:
         raise HTTPException(status_code=503, detail="TTS service not configured")
     language = _LANG_MAP.get(req.language, "Auto")
-    try:
-        async with httpx.AsyncClient(timeout=300.0) as client:
-            resp = await client.post(_TTS_URL, json={"text": req.text, "language": language})
-        if resp.status_code != 200:
-            raise HTTPException(status_code=502, detail=f"TTS service returned {resp.status_code}")
-        audio = resp.content
-        if not audio:
-            raise HTTPException(status_code=502, detail="TTS service returned empty audio")
-    except HTTPException:
-        raise
-    except Exception as e:
-        raise HTTPException(status_code=502, detail=f"TTS service unreachable: {e}")
-    return Response(
-        content=audio,
+    logger.info("TTS -> %s | lang=%s | %.80s", _TTS_URL, language, req.text)
+    # StreamingResponse commits 200 + headers immediately, satisfying platform
+    # proxy timeouts while Modal cold-starts in the background.
+    return StreamingResponse(
+        _stream_tts(req.text, language),
         media_type="audio/wav",
-        headers={"Cache-Control": "no-store", "Content-Length": str(len(audio))},
+        headers={"Cache-Control": "no-store"},
     )
