@@ -2,7 +2,7 @@ import tempfile
 import os
 import httpx
 from fastapi import APIRouter, UploadFile, File, HTTPException
-from fastapi.responses import StreamingResponse
+from fastapi.responses import Response
 from pydantic import BaseModel
 from models import whisper
 from agent import graph
@@ -63,22 +63,25 @@ async def chat(req: ChatRequest):
     return {"response": response}
 
 
-async def _stream_from_modal(text: str, language: str):
-    async with httpx.AsyncClient(timeout=300.0) as client:
-        async with client.stream(
-            "POST", _TTS_URL, json={"text": text, "language": language}
-        ) as resp:
-            if resp.status_code != 200:
-                raise HTTPException(status_code=502, detail="TTS service error")
-            async for chunk in resp.aiter_bytes(8192):
-                yield chunk
-
-
 @router.post("/tts")
 async def tts(req: TtsRequest):
+    if not _TTS_URL:
+        raise HTTPException(status_code=503, detail="TTS service not configured")
     language = _LANG_MAP.get(req.language, "Auto")
-    return StreamingResponse(
-        _stream_from_modal(req.text, language),
+    try:
+        async with httpx.AsyncClient(timeout=300.0) as client:
+            resp = await client.post(_TTS_URL, json={"text": req.text, "language": language})
+        if resp.status_code != 200:
+            raise HTTPException(status_code=502, detail=f"TTS service returned {resp.status_code}")
+        audio = resp.content
+        if not audio:
+            raise HTTPException(status_code=502, detail="TTS service returned empty audio")
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=502, detail=f"TTS service unreachable: {e}")
+    return Response(
+        content=audio,
         media_type="audio/wav",
-        headers={"Cache-Control": "no-store"},
+        headers={"Cache-Control": "no-store", "Content-Length": str(len(audio))},
     )
