@@ -445,9 +445,6 @@ export default function AboutSection() {
                       {p.desc}
                     </p>
                   </div>
-                  <span style={{ ...tagDark, fontSize: '1rem', color: 'rgba(255,255,255,0.15)', alignSelf: 'center', flexShrink: 0 }}>
-                    ↗
-                  </span>
                 </div>
               </div>
             ))}

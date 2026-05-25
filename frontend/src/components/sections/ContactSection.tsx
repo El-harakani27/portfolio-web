@@ -216,7 +216,7 @@ export default function ContactSection() {
           rel="noopener noreferrer"
           className="social-link"
           style={{
-            fontFamily: MONO, fontSize: '0.7rem', letterSpacing: '0.1em',
+            fontFamily: MONO, fontSize: '0.5rem', letterSpacing: '0.1em',
             textTransform: 'uppercase', color: 'rgba(0,0,0,0.55)',
           }}
         >
@@ -267,7 +267,7 @@ export default function ContactSection() {
           fontFamily: MONO, fontSize: '0.58rem', letterSpacing: '0.14em',
           textTransform: 'uppercase', color: 'rgba(0,0,0)',
         }}>
-          © 2025 Mohamed El Harakani · Alexandria, Egypt
+          © 2026 Mohamed El Harakani · Egypt
         </p>
 
       </div>
